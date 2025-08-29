@@ -26,7 +26,6 @@ public class UsersMapper {
                 .avatar(usersRegisterRequestDto.getAvatar())
                 .name(usersRegisterRequestDto.getFullName())
                 .phoneNumber(usersRegisterRequestDto.getPhoneNumber())
-                //.role(usersRegisterRequestDto.getRoleId())
                 .build();
     }
 
