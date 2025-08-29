@@ -25,7 +25,7 @@ public class UsersController {
 
     private final UsersService usersService;
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<UsersResponseDto> createUsers(@RequestBody UsersRequestDto createUser) {
         Users saveUsers = usersService.createUsers(createUser);
         UsersResponseDto usersResponseDto = UsersMapper.toUsersRegisterResponseDto(saveUsers);
@@ -38,9 +38,9 @@ public class UsersController {
         return usersService.findByIdUsers(uuid);
     }
 
-    @PutMapping("/usersUpdate/{uuid}")
+    @PutMapping("/{uuid}")
     public ResponseEntity<UsersResponseDto> updateUsersDetails(@PathVariable(name = "uuid") UUID uuid,
-                                              @RequestBody UsersRequestDto usersRequestDto) {
+                                                               @RequestBody UsersRequestDto usersRequestDto) {
         Users users = UsersMapper.usersRequestDtoToUsers(usersRequestDto);
         Users updateUsers = usersService.updateUsers(uuid, users);
         UsersResponseDto usersResponseDto = UsersMapper.toUsersRegisterResponseDto(updateUsers);

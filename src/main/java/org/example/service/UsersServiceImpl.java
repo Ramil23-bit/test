@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.example.dto.UsersRequestDto;
 import org.example.entity.Role;
 import org.example.entity.Users;
-import org.example.repository.RoleRepository;
 import org.example.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -15,12 +15,11 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UsersServiceImpl implements UsersService {
     private final UsersRepository usersRepository;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
 
     @Override
     public Users createUsers(UsersRequestDto userDto) {
-        Role role = roleRepository.findById(userDto.getRoleId())
-                .orElseThrow(() -> new RuntimeException("Role not found"));
+        Role role = roleService.getRoleById(userDto.getRoleId());
 
         Users user = Users.builder()
                 .name(userDto.getFullName())
@@ -50,7 +49,8 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public Users findByIdUsers(UUID uuidUsers) {
-        return usersRepository.findById(uuidUsers).orElseThrow();
+        return usersRepository.findById(uuidUsers).orElseThrow(
+                () -> new NoSuchElementException("User with such UUID not found"));
     }
 
     @Override
