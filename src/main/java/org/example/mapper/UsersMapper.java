@@ -21,7 +21,7 @@ public class UsersMapper {
                 .build();
     }
 
-    public static Users usersRequestDtoToUsers (UsersRequestDto usersRegisterRequestDto) {
+    public static Users usersRequestDtoToUsers(UsersRequestDto usersRegisterRequestDto) {
         return Users.builder()
                 .avatar(usersRegisterRequestDto.getAvatar())
                 .name(usersRegisterRequestDto.getFullName())
